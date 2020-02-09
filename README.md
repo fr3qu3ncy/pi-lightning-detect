@@ -9,6 +9,8 @@ Interfaces with the AS3935 Franklin Lightning Sensor IC.
 * Integrate with RaspberryPi-AS3935 https://github.com/pcfens/RaspberryPi-AS3935.git
 
 ### Features in to-do
+* Log out lightning detection data
+* Run as Daemon
 * Send Lightning Detection data to webservice to log, triangulate, and view on map
 * Install scripts
 * OLED screen for stats & info
