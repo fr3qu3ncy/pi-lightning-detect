@@ -67,7 +67,6 @@ x = 0
 # Load default font.
 font = ImageFont.load_default()
 
-# AS2925 - initialise
 # I2C address - AS3935
 AS3935_I2C_ADDR1 = 0X01
 AS3935_I2C_ADDR2 = 0X02
@@ -97,13 +96,15 @@ def disp_get_y(line):
     }
     return line
 
-
+# AS2925 - initialise
+disp_clear()
 sensor = DFRobot_AS3935(AS3935_I2C_ADDR3, bus = 1)
 if (sensor.reset()):
     print("init sensor sucess.")
-    disp_text("init sensor sucess.", 1)
+    disp_text("Init sensor sucess.", 1)
 else:
     print("init sensor fail")
+    disp_text("Init sensor fail", 1)
     while True:
         pass
 #Configure sensor
@@ -111,10 +112,12 @@ sensor.powerUp()
 
 #set indoors or outdoors models
 sensor.setIndoors()
+disp_text("Indoor", 2)
 #sensor.setOutdoors()
 
 #disturber detection
 sensor.disturberEn()
+disp_text("Disterbers on", 3)
 #sensor.disturberDis()
 
 sensor.setIrqOutputSource(0)
@@ -167,6 +170,7 @@ GPIO.setup(IRQ_PIN, GPIO.IN)
 #Set the interrupt pin, the interrupt function, rising along the trigger
 GPIO.add_event_detect(IRQ_PIN, GPIO.RISING, callback = callback_handle)
 print("start lightning detect.")
+disp_text("Lightning detect started", 4)
 
 while True:
     time.sleep(1.0)
