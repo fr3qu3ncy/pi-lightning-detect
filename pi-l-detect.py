@@ -159,13 +159,15 @@ def callback_handle(channel):
         print('Distance: %dkm'%lightningDistKm)
         lightningEnergyVal = sensor.getStrikeEnergyRaw()
         print('Intensity: %d '%lightningEnergyVal)
-        disp_text("LIGHTNING", 1)
-        disp_text('Distance: %dkm'%lightningDistKm)
-        disp_text('Intensity: %d '%lightningEnergyVal)
+        disp_text("** LIGHTNING **", 1)
+        disp_text('Distance: %dkm'%lightningDistKm, 2)
+        disp_text('Intensity: %d '%lightningEnergyVal, 3)
     elif intSrc == 2:
         print('Disturber discovered!')
+        disp_text('Disturber discovered', 2)
     elif intSrc == 3:
         print('Noise level too high!')
+        disp_text('Noise level too high', 2)
     else:
         pass
 #Set to input mode
