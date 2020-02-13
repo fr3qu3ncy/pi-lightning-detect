@@ -75,23 +75,23 @@ def disp_text(mesg, line, size):
 def disp_get_y(line):
     switcher = {
         1: 0,
-        2: 8,
-        3: 16,
-        4: 25
+        2: 7,
+        3: 14,
+        4: 21
     }
     return switcher.get(line,0)
 
 disp_init()
 disp_clear()
-disp_text("Init sensor sucess.", 1, 7)
-disp_text("Init sensor fail", 2, 7)
+disp_text("Init sensor sucess", 1, 7)
+disp_text("Font Size 7", 2, 7)
 disp_text("Indoor", 3, 0)
 disp_text("Disterbers on", 4, 0)
 input("Press Enter to continue...")
 disp_clear()
 disp_text("Detection started", 1, 14)
 disp_text("Font Size 14", 3, 14)
-disp_text("Font Size 8", 4, 7)
+disp_text("Font Size 7", 4, 7)
 input("Press Enter to continue...")
 disp_clear()
 disp_text("Font Size 28", 2, 28)
