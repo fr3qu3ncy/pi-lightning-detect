@@ -85,7 +85,7 @@ def disp_clear():
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
 def disp_text(mesg, line):
     y=disp_get_y(line)
-    draw.text((x, top+y), "Init sensor sucess", font=font, fill=255)
+    draw.text((x, top+y), mesg, font=font, fill=255)
     disp.image(image)
     disp.show()
 def disp_get_y(line):
@@ -101,7 +101,7 @@ def disp_get_y(line):
 sensor = DFRobot_AS3935(AS3935_I2C_ADDR3, bus = 1)
 if (sensor.reset()):
     print("init sensor sucess.")
-
+    disp_text("init sensor sucess.", 1)
 else:
     print("init sensor fail")
     while True:
