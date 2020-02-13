@@ -68,16 +68,16 @@ def disp_text(mesg, line, size):
         typeface=font3
     else:
         typeface=font
-    y=disp_get_y(line, size)
+    y=disp_get_y(line)
     draw.text((x, top+y), mesg, font=typeface, fill=255)
     disp.image(image)
     disp.show()
-def disp_get_y(line, size):
+def disp_get_y(line):
     switcher = {
         1: 0,
-        2: size,
-        3: size*2,
-        4: size*3
+        2: 8,
+        3: 16,
+        4: 25
     }
     return switcher.get(line,0)
 
