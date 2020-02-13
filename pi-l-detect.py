@@ -90,9 +90,9 @@ def disp_text(mesg, line):
     disp.show()
 def disp_get_y(line):
     switcher = {
-        1: 0
-        2: 8
-        3: 16
+        1: 0,
+        2: 8,
+        3: 16,
         4: 24
     }
     return line
