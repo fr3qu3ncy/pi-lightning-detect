@@ -76,7 +76,7 @@ IRQ_PIN = 7
 
 GPIO.setmode(GPIO.BOARD)
 
-def disp_text(mesg, line)
+def disp_text(mesg, line):
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
     draw.text((x, top+8), "Init sensor sucess", font=font, fill=255)
