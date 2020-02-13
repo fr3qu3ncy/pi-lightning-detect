@@ -72,12 +72,12 @@ def disp_text(mesg, line, size):
     draw.text((x, top+y), mesg, font=typeface, fill=255)
     disp.image(image)
     disp.show()
-def disp_get_y(line):
+def disp_get_y(line, size):
     switcher = {
         1: 0,
-        2: 8,
-        3: 16,
-        4: 25
+        2: size,
+        3: size*2,
+        4: siz*3
     }
     return switcher.get(line,0)
 
