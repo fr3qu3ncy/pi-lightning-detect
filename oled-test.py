@@ -77,7 +77,7 @@ def disp_get_y(line, size):
         1: 0,
         2: size,
         3: size*2,
-        4: siz*3
+        4: size*3
     }
     return switcher.get(line,0)
 
