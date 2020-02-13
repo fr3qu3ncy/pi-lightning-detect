@@ -28,6 +28,8 @@ from datetime import datetime
 from DFRobot_AS3935_Lib import DFRobot_AS3935
 import RPi.GPIO as GPIO
 
+#GPIO.setmode(GPIO.BOARD)
+
 # PiOLED imports
 import subprocess
 from board import SCL, SDA
@@ -35,7 +37,6 @@ import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 
-GPIO.setmode(GPIO.BOARD)
 
 # PiOLED - initialise
 # Create the I2C interface.
@@ -74,7 +75,10 @@ AS3935_I2C_ADDR3 = 0X03
 
 #Antenna tuning capcitance (must be integer multiple of 8, 8 - 120 pf)
 AS3935_CAPACITANCE = 96
-IRQ_PIN = 7
+IRQ_PIN = 4
+
+# Not needed Adafruit lib set this to BCM
+#GPIO.setmode(GPIO.BCM)
 
 def disp_text(mesg, line):
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
