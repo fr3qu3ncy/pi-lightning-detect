@@ -74,7 +74,7 @@ AS3935_I2C_ADDR3 = 0X03
 AS3935_CAPACITANCE = 96
 IRQ_PIN = 7
 
-GPIO.setmode(GPIO.BOARD)
+#GPIO.setmode(GPIO.BOARD)
 
 sensor = DFRobot_AS3935(AS3935_I2C_ADDR3, bus = 1)
 if (sensor.reset()):
