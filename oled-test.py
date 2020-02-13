@@ -52,7 +52,7 @@ def disp_init():
     global font2
     global font3
     font = ImageFont.load_default()
-    font1 = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 8)
+    font1 = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 7)
     font2 = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 14)
     font3 = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 28)
 
@@ -60,7 +60,7 @@ def disp_init():
 def disp_clear():
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
 def disp_text(mesg, line, size):
-    if (size==8):
+    if (size==7):
         typeface=font1
     elif (size==14):
         typeface=font2
@@ -83,15 +83,15 @@ def disp_get_y(line):
 
 disp_init()
 disp_clear()
-disp_text("Init sensor sucess.", 1, 8)
-disp_text("Init sensor fail", 2, 8)
+disp_text("Init sensor sucess.", 1, 7)
+disp_text("Init sensor fail", 2, 7)
 disp_text("Indoor", 3, 0)
 disp_text("Disterbers on", 4, 0)
 input("Press Enter to continue...")
 disp_clear()
 disp_text("Detection started", 1, 14)
 disp_text("Font Size 14", 3, 14)
-disp_text("Font Size 8", 1, 8)
+disp_text("Font Size 8", 4, 7)
 input("Press Enter to continue...")
 disp_clear()
 disp_text("Font Size 28", 2, 28)
