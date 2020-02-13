@@ -1,3 +1,6 @@
+# Pi Lightning Detect - Micro Cube Technology
+# Control of AS3935 lightning sensor, and stsus updates to PiOLED display
+
 # file DFRobot_AS3935_detailed.py
 #
 # SEN0290 Lightning Sensor
@@ -16,7 +19,7 @@
 # date  2018-11-28
 
 import sys
-sys.path.append('../')
+# sys.path.append('../')
 import time
 from DFRobot_AS3935_Lib import DFRobot_AS3935
 import RPi.GPIO as GPIO
