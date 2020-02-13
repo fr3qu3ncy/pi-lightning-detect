@@ -74,13 +74,15 @@ AS3935_I2C_ADDR3 = 0X03
 AS3935_CAPACITANCE = 96
 IRQ_PIN = 7
 
-GPIO.setmode(GPIO.BOARD)
+#GPIO.setmode(GPIO.BOARD)
 
 sensor = DFRobot_AS3935(AS3935_I2C_ADDR3, bus = 1)
 if (sensor.reset()):
     print("init sensor sucess.")
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
     draw.text((x, top+8), "Init sensor sucess", font=font, fill=255)
+    disp.image(image)
+    disp.show()
 else:
     print("init sensor fail")
     while True:
