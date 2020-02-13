@@ -169,6 +169,7 @@ def callback_handle(channel):
         print('Noise level too high!')
         disp_text('Noise level too high', 2)
     else:
+        disp_text('Distance algo updated', 2)
         pass
 #Set to input mode
 GPIO.setup(IRQ_PIN, GPIO.IN)
