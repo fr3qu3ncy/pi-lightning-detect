@@ -48,11 +48,11 @@ def disp_init():
 def disp_clear():
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
 def disp_text(mesg, line, size):
-    if (size=8):
+    if (size==8):
         typeface=font1
-    elif (size=14):
+    elif (size==14):
         typeface=font2
-    elif (size=28):
+    elif (size==28):
         typeface=font3
     else:
         typeface=font
