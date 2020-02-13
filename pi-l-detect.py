@@ -84,6 +84,7 @@ def disp_clear():
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
 def disp_text(mesg, line):
     y=disp_get_y(line)
+    print(y)
     draw.text((x, top+y), mesg, font=font, fill=255)
     disp.image(image)
     disp.show()
@@ -92,9 +93,9 @@ def disp_get_y(line):
         1: 0,
         2: 8,
         3: 16,
-        4: 24
+        4: 25
     }
-    return line
+    return switcher.get(line,0)
 
 # AS2925 - initialise
 disp_clear()
