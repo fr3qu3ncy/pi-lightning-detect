@@ -77,7 +77,8 @@ def disp_get_y(line):
         1: 0,
         2: 7,
         3: 14,
-        4: 21
+        4: 21,
+        5: 28
     }
     return switcher.get(line,0)
 
@@ -91,7 +92,12 @@ input("Press Enter to continue...")
 disp_clear()
 disp_text("Detection started", 1, 14)
 disp_text("Font Size 14", 3, 14)
-disp_text("Font Size 7", 4, 7)
+disp_text("Font Size 7", 5, 7)
+input("Press Enter to continue...")
+disp_clear()
+disp_text("Detection started", 2, 14)
+disp_text("Font Size 14", 4, 14)
+disp_text("Font Size 7", 1, 7)
 input("Press Enter to continue...")
 disp_clear()
 disp_text("Font Size 28", 2, 28)
