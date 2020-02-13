@@ -54,6 +54,15 @@ image = Image.new('1', (width, height))
 draw = ImageDraw.Draw(image)
 # Draw a black filled box to clear the image.
 draw.rectangle((0, 0, width, height), outline=0, fill=0)
+# Draw some shapes.
+# First define some constants to allow easy resizing of shapes.
+padding = -2
+top = padding
+bottom = height-padding
+# Move left to right keeping track of the current x position for drawing shapes.
+x = 0
+# Load default font.
+font = ImageFont.load_default()
 
 # AS2925 - initialise
 # I2C address - AS3935
@@ -70,6 +79,8 @@ GPIO.setmode(GPIO.BOARD)
 sensor = DFRobot_AS3935(AS3935_I2C_ADDR3, bus = 1)
 if (sensor.reset()):
     print("init sensor sucess.")
+    draw.rectangle((0, 0, width, height), outline=0, fill=0)
+    draw.text((x, top+8), "Init sensor sucess", font=font, fill=255)
 else:
     print("init sensor fail")
     while True:
