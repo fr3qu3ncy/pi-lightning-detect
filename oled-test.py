@@ -59,7 +59,7 @@ def disp_init():
 #PiOLED functions
 def disp_clear():
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
-def disp_text(mesg, line, size):
+def disp_text(mesg, line, size, offset=0):
     if (size==7):
         typeface=font1
     elif (size==14):
@@ -69,15 +69,15 @@ def disp_text(mesg, line, size):
     else:
         typeface=font
     y=disp_get_y(line)
-    draw.text((x, top+y), mesg, font=typeface, fill=255)
+    draw.text((x, top+offset+y), mesg, font=typeface, fill=255)
     disp.image(image)
     disp.show()
 def disp_get_y(line):
     switcher = {
         1: 0,
-        2: 8,
-        3: 15,
-        4: 22
+        2: 7,
+        3: 14,
+        4: 21
     }
     return switcher.get(line,0)
 
@@ -91,16 +91,21 @@ input("Press Enter to continue...")
 disp_clear()
 disp_text("Detection started", 1, 14)
 disp_text("Font Size 14", 3, 14)
-disp_text("Font Size 7", 5, 7)
-input("Press Enter to continue...")
-disp_clear()
-disp_text("Detection started", 2, 14)
-disp_text("Font Size 14", 4, 14)
 disp_text("Font Size 7", 1, 7)
 input("Press Enter to continue...")
 disp_clear()
-disp_text("Detection started", 2, 14)
-disp_text("Font Size 14", 4, 14)
+disp_text("Detection started", 2, 14, 0)
+disp_text("Font Size 14", 4, 14, 0)
+disp_text("Font Size 7", 1, 7)
+disp_clear()
+input("Press Enter to continue...")
+disp_text("Detection started", 2, 14, 1)
+disp_text("Font Size 14", 4, 14, 1)
+disp_text("Font Size 7", 1, 7)
+input("Press Enter to continue...")
+disp_clear()
+disp_text("Detection started", 2, 14, 1)
+disp_text("Font Size 14", 4, 14, 1)
 disp_text("Font Size 8", 1, 0)
 input("Press Enter to continue...")
 disp_clear()
