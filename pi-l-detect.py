@@ -84,7 +84,6 @@ def disp_clear():
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
 def disp_text(mesg, line):
     y=disp_get_y(line)
-    print(y)
     draw.text((x, top+y), mesg, font=font, fill=255)
     disp.image(image)
     disp.show()
@@ -150,6 +149,7 @@ sensor.setSpikeRejection(2)
 #sensor.printAllRegs()
 
 def callback_handle(channel):
+    disp_clear()
     global sensor
     time.sleep(0.005)
     intSrc = sensor.getInterruptSrc()
@@ -157,9 +157,11 @@ def callback_handle(channel):
         lightningDistKm = sensor.getLightningDistKm()
         print('Lightning occurs!')
         print('Distance: %dkm'%lightningDistKm)
-
         lightningEnergyVal = sensor.getStrikeEnergyRaw()
         print('Intensity: %d '%lightningEnergyVal)
+        disp_text("LIGHTNING", 1)
+        disp_text('Distance: %dkm'%lightningDistKm)
+        disp_text('Intensity: %d '%lightningEnergyVal)
     elif intSrc == 2:
         print('Disturber discovered!')
     elif intSrc == 3:
@@ -171,7 +173,7 @@ GPIO.setup(IRQ_PIN, GPIO.IN)
 #Set the interrupt pin, the interrupt function, rising along the trigger
 GPIO.add_event_detect(IRQ_PIN, GPIO.RISING, callback = callback_handle)
 print("start lightning detect.")
-disp_text("Lightning detect started", 4)
+disp_text("Detection started", 4)
 
 while True:
     time.sleep(1.0)
