@@ -68,7 +68,7 @@ def disp_text(mesg, line, size):
         typeface=font3
     else:
         typeface=font
-    y=disp_get_y(line)
+    y=disp_get_y(line, size)
     draw.text((x, top+y), mesg, font=typeface, fill=255)
     disp.image(image)
     disp.show()
