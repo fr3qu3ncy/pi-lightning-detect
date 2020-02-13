@@ -44,6 +44,7 @@ def disp_init():
     top = padding
     bottom = height-padding
     # Move left to right keeping track of the current x position for drawing shapes.
+    global x
     x = 0
     # Load default font.
     global font
