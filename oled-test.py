@@ -13,6 +13,13 @@ import adafruit_ssd1306
 
 def disp_init():
     # PiOLED - initialise
+    global disp
+    global draw
+    global image
+    global width
+    global height
+    global top
+    global bottom
     # Create the I2C interface.
     i2c = busio.I2C(SCL, SDA)
     # Create the SSD1306 OLED class.
@@ -28,7 +35,6 @@ def disp_init():
     height = disp.height
     image = Image.new('1', (width, height))
     # Get drawing object to draw on image.
-    global draw
     draw = ImageDraw.Draw(image)
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
