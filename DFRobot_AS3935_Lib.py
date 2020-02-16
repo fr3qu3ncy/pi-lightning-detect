@@ -60,21 +60,21 @@ class DFRobot_AS3935:
 
     def setIndoors(self):
         self.singRegWrite(0x00, 0x3E, 0x24)
-        print("set to indoors model")
+        #print("set to indoors model")
 
     def setOutdoors(self):
         self.singRegWrite(0x00, 0x3E, 0x1C)
-        print("set to outdoors model")
+        #print("set to outdoors model")
 
     def disturberDis(self):
         #register 0x03, PWD bit: 5 (sets MASK_DIST)
         self.singRegWrite(0x03, 0x20, 0x20)
-        print("disenable disturber detection")
+        #print("disenable disturber detection")
 
     def disturberEn(self):
         #register 0x03, PWD bit: 5 (sets MASK_DIST)
         self.singRegWrite(0x03, 0x20, 0x00)
-        print("enable disturber detection")
+        #print("enable disturber detection")
 
     def singRegWrite(self, regAdd, dataMask, regData):
         #start by reading original register data (only modifying what we need to)

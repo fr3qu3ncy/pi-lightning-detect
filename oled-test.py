@@ -58,22 +58,25 @@ def disp_init():
     font2 = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 14)
     font3 = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 28)
 
-#PiOLED functions
+# PiOLED functions
+
 def disp_clear():
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
+
 def disp_text(mesg, line, size, offset=0):
-    if (size==7):
-        typeface=font1
-    elif (size==14):
-        typeface=font2
-    elif (size==28):
-        typeface=font3
+    if (size == 7):
+        typeface = font1
+    elif (size == 14):
+        typeface = font2
+    elif (size == 28):
+        typeface = font3
     else:
-        typeface=font
+        typeface = font
     y=disp_get_y(line)
     draw.text((x, top+offset+y), mesg, font=typeface, fill=255)
     disp.image(image)
     disp.show()
+
 def disp_get_y(line):
     switcher = {
         1: 0,
@@ -81,7 +84,7 @@ def disp_get_y(line):
         3: 14,
         4: 21
     }
-    return switcher.get(line,0)
+    return switcher.get(line, 0)
 
 disp_init()
 disp_clear()
