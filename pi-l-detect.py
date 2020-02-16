@@ -5,20 +5,14 @@
 
 # General imports
 from pi_ld_lib import *
+from pi_ld_oled_lib import *
 
 # AS3935 imports
 from DFRobot_AS3935_Lib import DFRobot_AS3935
 import RPi.GPIO as GPIO
 
-# PiOLED imports
-import subprocess
-from board import SCL, SDA
-import busio
-from PIL import Image, ImageDraw, ImageFont
-import adafruit_ssd1306
-
 # Set up logging
-format = "%(asctime)s.%(msecs)03d %(levelname)s %(process)d (%(name)s-%(threadName)s) %(message)s (linux-Thread-%(thread)d)"
+format = "%(asctime)s.%(msecs)03d %(levelname)s %(process)d (%(name)s-%(threadName)s) %(message)s (linuxThread-%(thread)d)"
 logging.basicConfig(format=format, level=logging.INFO, datefmt="%m/%d/%Y %H:%M:%S")
 logging.info('pi-lightgning-detect started')
 
@@ -190,10 +184,10 @@ updater_thread = threading.Thread(target=detected_noise)
 updater_thread.start()
 updater_thread = threading.Thread(target=detected_algo_updated)
 updater_thread.start()
-time.sleep(1)
+time.sleep(0.1)
 updater_thread = threading.Thread(target=detected_lightning, args=[27, 2])
 updater_thread.start()
-time.sleep(1)
+time.sleep(0.1)
 updater_thread = threading.Thread(target=detected_lightning, args=[14, 22])
 updater_thread.start()
 time.sleep(0.2)
@@ -205,7 +199,7 @@ db_dump('ld_lightning')
 db_dump('ld_disturber')
 db_dump('ld_noise')
 db_dump('ld_algo')
-
+stats_update()
 while True:
     time.sleep(1.0)
 

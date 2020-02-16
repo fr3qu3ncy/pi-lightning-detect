@@ -1,15 +1,23 @@
 # Pi Lightning Detect - Micro Cube Technology
 # Functions for pi-l-detect
 
-# file pi-ld-lib.py
+# file pi_ld_lib.py
 
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
 import threading
 import sqlite3
 
+global l_events        # Stores nubmer of lightning strikes in the past (10m, 30m, 1h, 24h, 30d)
+l_events = [0] * 5
+global d_events        # Stores nubmer of disturber events in the past (10m, 30m, 1h, 24h, 30d)
+d_events = [0] * 5
+global n_events        # Stores nubmer of noise events in the past (10m, 30m, 1h, 24h, 30d)
+n_events = [0] * 5
+global a_events        # Stores nubmer of algo update events in the past (10m, 30m, 1h, 24h, 30d)
+a_events = [0] * 5
 
 def db_create():
     global conn
@@ -55,6 +63,29 @@ def detected_algo_updated():
     conn.commit()
     db_lock.release()
     logging.info('Distance algo updated')
+
+def stats_update():
+    # Update stats variables with data from in memeory DB.
+    time_10m = datetime.now() - timedelta(minutes=10)
+    time_30m = datetime.now() - timedelta(minutes=30)
+    time_1h = datetime.now() - timedelta(hours=1)
+    time_24h = datetime.now() - timedelta(hours=24)
+    time_30d = datetime.now() - timedelta(days=30)
+    db_lock.acquire()
+    c.execute("SELECT COUNT(*) FROM ld_lightning WHERE date > ?", (time_10m,))
+    l_events[0]=c.fetchone()[0]
+    c.execute("SELECT COUNT(*) FROM ld_lightning WHERE date > ?", (time_30m,))
+    l_events[1]=c.fetchone()[0]
+    c.execute("SELECT COUNT(*) FROM ld_lightning WHERE date > ?", (time_1h,))
+    l_events[2]=c.fetchone()[0]
+    c.execute("SELECT COUNT(*) FROM ld_lightning WHERE date > ?", (time_24h,))
+    l_events[3]=c.fetchone()[0]
+    c.execute("SELECT COUNT(*) FROM ld_lightning WHERE date > ?", (time_30d,))
+    l_events[4]=c.fetchone()[0]
+    db_lock.release()
+    # print(time_10m, time_30m, time_1h, time_24h, time_30d)
+    # print(l_strikes_10m, l_strikes_30m, l_strikes_1h, l_strikes_24h, l_strikes_30d)
+    print(l_events)
 
 def db_dump(table_name):
     # table_name can be ld_lightning, ld_disturber, ld_noise, ld_algo
