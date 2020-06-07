@@ -33,7 +33,7 @@ events_n = [0] * 5 # Stores nubmer of noise events in the past (10m, 30m, 1h, 24
 events_a = [0] * 5 # Stores nubmer of algo update events in the past (10m, 30m, 1h, 24h, 30d)
 events_last_distance = 0 # Stores distance of last strike
 events_last_energy = 0 # Stores energy of last strike
-# Stores datetime of last strike
+events_last_time = 0 # Stores datetime of last strike
 
 
 #
@@ -56,6 +56,9 @@ def db_create():
     logging.info('In Memory databases setup')
 
 def detected_lightning(distance, energy):
+    global events_last_distance
+    global events_last_energy
+    global events_last_time
     events_last_time = datetime.now()
     events_last_distance = distance
     events_last_energy = energy
@@ -241,14 +244,29 @@ def display_stats_update():
     display_clear() # TODO will want to change this to only clear the stats area.
     disp_lock.acquire()
     typeface = font_dvs_14
-    mesg = "00Km E 000%"
-    draw.text((x, top), mesg, font=typeface, fill=255)
-    mesg = "Last 10min ago"
-    draw.text((x, top+16), mesg, font=typeface, fill=255)
-    disp.image(image)
+    if (events_last_time != 0):
+        mesg = f'{events_last_distance}Km E {round(events_last_energy, 2)}%'
+        draw.text((x, top), mesg, font=typeface, fill=255)
+        last_time_diff = datetime.now() - events_last_time
+        last_time_diff_sec_total = last_time_diff.seconds
+        last_time_diff_mins = (last_time_diff_sec_total//60)%60
+        last_time_diff_sec = (last_time_diff_sec_total - (last_time_diff_mins * 60))
+        #logging.info("calculated last time: %sm %ss", last_time_diff_mins, last_time_diff_sec)
+        if (last_time_diff_sec_total < 5):
+            mesg = " * LIGHTNING *"
+        else:
+            mesg = f'{last_time_diff_mins}m {last_time_diff_sec}s ago'
+        draw.text((x, top+16), mesg, font=typeface, fill=255)
+        disp.image(image)
+    else:
+        mesg = 'Detector started'
+        draw.text((x, top), mesg, font=typeface, fill=255)
+        mesg = 'wait for lightning'
+        draw.text((x, top+16), mesg, font=typeface, fill=255)
+        disp.image(image)
     disp.show()
     disp_lock.release()
-    logging.info('Updated display')
+    #logging.info('Updated display')
 
 def disp_text(mesg, line, size, offset=0):
     if (size == 7):
