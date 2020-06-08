@@ -249,7 +249,7 @@ def display_stats_update():
         draw.text((x, top), mesg, font=typeface, fill=255)
         last_time_diff = datetime.now() - events_last_time
         last_time_diff_sec_total = last_time_diff.seconds
-        last_time_diff_mins = (last_time_diff_sec_total//60)%60
+        last_time_diff_mins = (last_time_diff_sec_total//60)
         last_time_diff_sec = (last_time_diff_sec_total - (last_time_diff_mins * 60))
         #logging.info("calculated last time: %sm %ss", last_time_diff_mins, last_time_diff_sec)
         if (last_time_diff_sec_total < 5):
