@@ -157,6 +157,10 @@ db_dump('ld_algo')
 
 while True:
     time.sleep(1.0)
-    display_stats_update()
-
+    try:
+        display_stats_update()
+    except IOError as e:
+        error = e
+        logging.error("Error updating OLED diaply: %s", error)
+        display_init()
 
