@@ -16,10 +16,8 @@ import RPi.GPIO as GPIO
 format = "%(asctime)s.%(msecs)03d %(levelname)s %(process)d (%(name)s-%(threadName)s) %(message)s (linuxThread-%(thread)d)"
 logging.basicConfig(format=format, level=logging.INFO, datefmt="%m/%d/%Y %H:%M:%S")
 logging.info('pi-lightgning-detect started')
-
 # Create in memeory database
 db_create()
-
 # Initialise display
 display_init()
 
@@ -29,6 +27,11 @@ AS3935_I2C_ADDR2 = 0X02
 AS3935_I2C_ADDR3 = 0X03
 # Antenna tuning capcitance (must be integer multiple of 8, 8 - 120 pf)
 AS3935_CAPACITANCE = 96
+# Watchdog Threshold - default value of 0010 / 0x02
+AS3935_WDTH = 0x03
+# Spike Rejection - default value of 0010 / 0x02
+AS3935_SREJ = 0x03
+# GPIO Pin
 IRQ_PIN = 4
 
 # AS2925 - initialise
@@ -59,6 +62,16 @@ disp_text("Disterbers on", 3, 7)
 #logging.info("Disterbers not raised")
 #disp_text("Disterbers off", 3, 7)
 
+# Watchdog Threshold [WDTH] - Detection efficiency (sensitivity of lightning detection vs disterber rejection) 0x00 to 0x10
+sensor.setWatchdogThreshold(AS3935_WDTH)
+logging.info(f'Watchdog Threshold: {AS3935_WDTH}')
+disp_text(f'WDTH {AS3935_WDTH}', 4, 7)
+
+# Spike Rejection [SREJ] - Detection efficiency (sensitivity of lightning detection vs disterber rejection) 0x00 to 0x10
+sensor.setSpikeRejection(AS3935_SREJ)
+logging.info(f'Spike Rejection: {AS3935_SREJ}')
+disp_text(f'SREJ {AS3935_SREJ}', 1, 7)
+
 sensor.setIrqOutputSource(0)
 time.sleep(0.5)
 # Set capacitance
@@ -77,15 +90,15 @@ sensor.setNoiseFloorLv1(2)
 #noiseLv = sensor.getNoiseFloorLv1()
 
 #used to modify WDTH,alues should only be between 0x00 and 0x0F (0 and 7)
-sensor.setWatchdogThreshold(2)
+#sensor.setWatchdogThreshold(2)
 #wtdgThreshold = sensor.getWatchdogThreshold()
 
 #used to modify SREJ (spike rejection),values should only be between 0x00 and 0x0F (0 and 7)
-sensor.setSpikeRejection(2)
+#sensor.setSpikeRejection(2)
 #spikeRejection = sensor.getSpikeRejection()
 
 #view all register data
-#sensor.printAllRegs()
+sensor.printAllRegs()
 
 
 def callback_handle(channel):
@@ -125,28 +138,28 @@ logging.info("Detection started...")
 disp_text("Detection started", 4, 7)
 
 #TEST CODE
-time.sleep(1.5)
-display_stats_update()
-time.sleep(5.5)
-thread_updater = threading.Thread(target=detected_lightning, args=[31, 11.0000])
-thread_updater.start()
-logging.info("Started thread : %s", thread_updater.name)
-thread_updater = threading.Thread(target=detected_disturber)
-thread_updater.start()
-thread_updater = threading.Thread(target=detected_noise)
-thread_updater.start()
-thread_updater = threading.Thread(target=detected_algo_updated)
-thread_updater.start()
-time.sleep(2)
-thread_updater = threading.Thread(target=detected_lightning, args=[27, 2.5234])
-thread_updater.start()
-time.sleep(4)
-thread_updater = threading.Thread(target=detected_lightning, args=[14, 22.88921])
-thread_updater.start()
-time.sleep(4)
-thread_updater = threading.Thread(target=detected_lightning, args=[12, 31.63242])
-thread_updater.start()
-time.sleep(0.5)
+# time.sleep(1.5)
+# display_stats_update()
+# time.sleep(5.5)
+# thread_updater = threading.Thread(target=detected_lightning, args=[31, 11.0000])
+# thread_updater.start()
+# logging.info("Started thread : %s", thread_updater.name)
+# thread_updater = threading.Thread(target=detected_disturber)
+# thread_updater.start()
+# thread_updater = threading.Thread(target=detected_noise)
+# thread_updater.start()
+# thread_updater = threading.Thread(target=detected_algo_updated)
+# thread_updater.start()
+# time.sleep(2)
+# thread_updater = threading.Thread(target=detected_lightning, args=[27, 2.5234])
+# thread_updater.start()
+# time.sleep(4)
+# thread_updater = threading.Thread(target=detected_lightning, args=[14, 22.88921])
+# thread_updater.start()
+# time.sleep(4)
+# thread_updater = threading.Thread(target=detected_lightning, args=[12, 31.63242])
+# thread_updater.start()
+# time.sleep(0.5)
 print("Database Dump:")
 db_dump('ld_lightning')
 db_dump('ld_disturber')
