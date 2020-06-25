@@ -98,6 +98,7 @@ sensor.setNoiseFloorLv1(2)
 #spikeRejection = sensor.getSpikeRejection()
 
 #view all register data
+logging.info("Dump of AS2925 Registers")
 sensor.printAllRegs()
 
 
@@ -108,9 +109,6 @@ def callback_handle(channel):
     if intSrc == 1:
         lightningDistKm = sensor.getLightningDistKm()
         lightningEnergyVal = sensor.getStrikeEnergyRaw()
-        # disp_text("** LIGHTNING **", 1, 7)
-        # disp_text('Distance: %dkm'%lightningDistKm, 2, 7)
-        # disp_text('Intensity: %d '%lightningEnergyVal, 3, 7)
         thread_updater = threading.Thread(target=detected_lightning, args=[lightningDistKm, lightningEnergyVal])
         thread_updater.start()
     elif intSrc == 2:
@@ -135,7 +133,7 @@ GPIO.add_event_detect(IRQ_PIN, GPIO.RISING, callback = callback_handle)
 # pylint: enable=no-member
 
 logging.info("Detection started...")
-disp_text("Detection started", 4, 7)
+disp_text("Detection started", 2, 7)
 
 #TEST CODE
 # time.sleep(1.5)
@@ -160,7 +158,7 @@ disp_text("Detection started", 4, 7)
 # thread_updater = threading.Thread(target=detected_lightning, args=[12, 31.63242])
 # thread_updater.start()
 # time.sleep(0.5)
-print("Database Dump:")
+logging.info("Dump of Database")
 db_dump('ld_lightning')
 db_dump('ld_disturber')
 db_dump('ld_noise')
