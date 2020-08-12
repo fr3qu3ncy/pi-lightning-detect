@@ -28,9 +28,11 @@ AS3935_I2C_ADDR3 = 0X03
 # Antenna tuning capcitance (must be integer multiple of 8, 8 - 120 pf)
 AS3935_CAPACITANCE = 96
 # Watchdog Threshold - default value of 0010 / 0x02
-AS3935_WDTH = 0x03
+AS3935_WDTH = 0x02
 # Spike Rejection - default value of 0010 / 0x02
-AS3935_SREJ = 0x03
+AS3935_SREJ = 0x02
+# Minimum Strikes in 15 mins to start alerting - default value 1 - Options are 1, 5, 9 or 16 strikes
+AS3935_MIN_SRK = 5
 # GPIO Pin
 IRQ_PIN = 4
 
@@ -72,6 +74,10 @@ sensor.setSpikeRejection(AS3935_SREJ)
 logging.info(f'Spike Rejection: {AS3935_SREJ}')
 disp_text(f'SREJ {AS3935_SREJ}', 1, 7)
 
+# Minumum Strikes in 15 mins.
+sensor.setMinStrikes(AS3935_MIN_SRK)
+disp_text(f'MIN_SRK {AS3935_MIN_SRK}', 2, 7)
+
 sensor.setIrqOutputSource(0)
 time.sleep(0.5)
 # Set capacitance
@@ -100,6 +106,7 @@ sensor.setNoiseFloorLv1(2)
 #view all register data
 logging.info("Dump of AS2925 Registers")
 sensor.printAllRegs()
+
 
 
 def callback_handle(channel):
