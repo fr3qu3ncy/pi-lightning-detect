@@ -9,6 +9,7 @@ import sys
 import time
 from datetime import datetime, timedelta
 import logging
+from logging.handlers import TimedRotatingFileHandler
 import threading
 import sqlite3
 
@@ -35,6 +36,20 @@ events_last_distance = 0 # Stores distance of last strike
 events_last_energy = 0 # Stores energy of last strike
 events_last_time = 0 # Stores datetime of last strike
 
+global logging
+log_path = "/var/log/pi-lightning-detect/pi-l-detect.log"
+
+#
+# Logging
+#
+def log_create():
+    format = "%(asctime)s.%(msecs)03d %(levelname)s %(process)d (%(name)s-%(threadName)s) %(message)s (linuxThread-%(thread)d)"
+    logger = logging.getLogger("Rotating Log")
+    logger.setLevel(logging.INFO)
+    log_handler = TimedRotatingFileHandler(log_path, when="midnight", interval=1, backupCount=30)
+    log_handler.setFormatter(format)
+    logger.addHandler(log_handler)
+    #logging.basicConfig(format=format, level=logging.INFO, datefmt="%m/%d/%Y %H:%M:%S")
 
 #
 # DB and statistics update functions
@@ -148,7 +163,7 @@ def stats_update(event_type):
     else:
         pass
     db_lock.release()
-    logging.info('Stats updated for %s', event_type)
+    #slogging.info('Stats updated for %s', event_type)
     # Update Display not stats have changed
     thread_display = threading.Thread(target=display_stats_update)
     thread_display.start()

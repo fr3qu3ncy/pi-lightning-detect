@@ -13,8 +13,10 @@ from DFRobot_AS3935_Lib import DFRobot_AS3935
 import RPi.GPIO as GPIO
 
 # Set up logging
+#log_create()
 format = "%(asctime)s.%(msecs)03d %(levelname)s %(process)d (%(name)s-%(threadName)s) %(message)s (linuxThread-%(thread)d)"
 logging.basicConfig(format=format, level=logging.INFO, datefmt="%m/%d/%Y %H:%M:%S")
+
 logging.info('pi-lightgning-detect started')
 # Create in memeory database
 db_create()
@@ -57,12 +59,12 @@ disp_text("Indoor", 2, 7)
 #disp_text("Outdoor", 2, 7)
 
 # Disturber detection
-sensor.disturberEn()
-logging.info("Disterbers will be raised and logged")
-disp_text("Disterbers on", 3, 7)
-#sensor.disturberDis()
-#logging.info("Disterbers not raised")
-#disp_text("Disterbers off", 3, 7)
+#sensor.disturberEn()
+#logging.info("Disterbers will be raised and logged")
+#disp_text("Disterbers on", 3, 7)
+sensor.disturberDis()
+logging.info("Disterbers not raised")
+disp_text("Disterbers off", 3, 7)
 
 # Watchdog Threshold [WDTH] - Detection efficiency (sensitivity of lightning detection vs disterber rejection) 0x00 to 0x10
 sensor.setWatchdogThreshold(AS3935_WDTH)
