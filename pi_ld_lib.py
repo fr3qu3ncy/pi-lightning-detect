@@ -163,7 +163,7 @@ def stats_update(event_type):
     else:
         pass
     db_lock.release()
-    #slogging.info('Stats updated for %s', event_type)
+    # slogging.info('Stats updated for %s', event_type)
     # Update Display not stats have changed
     thread_display = threading.Thread(target=display_stats_update)
     thread_display.start()
