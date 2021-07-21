@@ -22,3 +22,5 @@ Interfaces with the AS3935 Franklin Lightning Sensor IC.
 * Run as Daemon
 * Install scripts
 
+### Run the Code
+* **python3 pi-l-detect.py**
