@@ -2,6 +2,7 @@
 Interfaces with the AS3935 Franklin Lightning Sensor IC.
 
 ## About
+A cheap way to create a lighning detector with a Raspberry Pi, the AS3935 Sensor, and an Adafruit PiOLD display.
 ### Features working:
 * Integrate with RaspberryPi-AS3935 https://github.com/pcfens/RaspberryPi-AS3935.git
 * Basic features - intergrated to AS3935 & OLED screen. Detect Lightning strikes, logs to stdout
